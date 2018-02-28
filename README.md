@@ -1,2 +1,2 @@
 # python
-A few files python for statistics applications
+A few python3 files for statistics applications
