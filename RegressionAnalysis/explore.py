@@ -31,6 +31,10 @@ Xvolt = np.matrix(np.concatenate((
 thetaVolt = np.multiply(np.linalg.inv(Xvolt.T*Xvolt)*Xvolt.T, Y) # (Xt*X)^(-1)*Xt*y
 lumi_predictor_volt = Xvolt*thetaVolt
 quadratic_error_volt = (Y - Xvolt*thetaVolt).T * (Y - Xvolt*thetaVolt)
+print("Regression lineaire simple de la luminosite ambiante en fonction de la tension a vide aux bornes du capteur")
+print("Lumi predictor: ", lumi_predictor_volt)
+print("Quadratic error: ", quadratic_error_volt)
+
 
 # Parameter estimator for the mA parameter only
 # Regression model: lum_i = Θ_0 + x_i(2) Θ_2 + E_i
@@ -41,7 +45,9 @@ XmA = np.matrix(np.concatenate((
 thetamA = np.multiply(np.linalg.inv(XmA.T*XmA)*XmA.T, Y) # (Xt*X)^(-1)*Xt*y
 lumi_predictor_mA = XmA*thetamA
 quadratic_error_mA = (Y - XmA*thetamA).T * (Y - XmA*thetamA)
-
+print("Regression lineaire simple de la luminosite ambiante en fonction du courant de court-circuit du capteur")
+print("Lumi predictor: ", lumi_predictor_mA)
+print("Quadratic error: ", quadratic_error_mA)
 
 # Parameter estimator for all the parameters
 # Regression model: lum_i = Θ_0 + x_i(1) Θ_1 + x_i(2) Θ_2 + E_i
@@ -53,3 +59,6 @@ X = np.matrix(np.concatenate((
 theta = np.multiply(np.linalg.inv(X.T*X)*X.T, Y) # (Xt*X)^(-1)*Xt*y
 lumi_predictor = X*theta
 quadratic_error = (Y - X*theta).T * (Y - X*theta)
+print("Regression lineaire multiple de la luminosite ambiante en fonction de ces deux paramètres")
+print("Lumi predictor: ", lumi_predictor)
+print("Quadratic error: ", quadratic_error)
