@@ -16,23 +16,16 @@ def displayPlots():
         plt.show()
         return
 
-def regLinSimple(Y,x, n):
-        # Calcul de la moyenne
-        meanY = np.mean(Y)
-        meanx = np.mean(x)
-
+def regLinSimple(Y, x, n):
         # Calcul de la covariance
-        covariancexY = (np.sum(x*Y)) / n-(meanY*meanx)
+        covariancexY = (np.sum(x*Y)) / n-(np.mean(Y)*np.mean(x))
 
         # Calcul de sigma
         b = covariancexY / np.var(x)
-        a = np.mean(Y) - b*meanx
-        sigma = (np.sum((Y-a-b*x)**2))/n        
+        a = np.mean(Y) - b*np.mean(x)
+        sigma = (np.sum((Y-a-b*x)**2))/n  
 
-        # Calcul de l'erreur quadratique
         quadratic_error = np.sum((Y-a-b*x)**2)
-
-        # Calcul de la prediction
         lumi_predictor = a*x+b
 
         print("a estimation: ",a)
