@@ -82,8 +82,7 @@ def displayBarycentres(plt, barycentres):
 	   y.append(point[1])
 
 	plt.plot(x, y, '+', color='red', markersize=12)
-	return 
-
+	return
 
 def display(clusters, barycentres):
 	plt.figure()
@@ -92,19 +91,21 @@ def display(clusters, barycentres):
 	plt.show()
 	return
 
+def deletePointFromCluster(clusters, point):
+	for cluster in clusters:
+		if point in cluster:
+			cluster.remove(point)
+	return
+
 # Number of points
-N = 50
+N = 99
 
 # Number of clusters
-K = 3
+K = 4
 
 points = generatePoints(N)
 barycentres = getInitBarycentres(points, N, K)
 nearestBary = getIndexOfNearestBarycentre(barycentres, points[0])
-
-# print("barycentres: {0}" . format(barycentres))
-# print("Point 0: {0}" . format(points[0]))
-# print("Nearest: {0}" . format(barycentres[nearestBary]))
 
 clusters = np.empty((K, 0)).tolist()
 
@@ -116,7 +117,13 @@ while haveModification:
 	for point in points:
 		nearestBaryIndex = getIndexOfNearestBarycentre(barycentres, point)
 		if point not in clusters[nearestBaryIndex]:
+			print("barycentres: {0}" . format(barycentres))
+			print("Point : {0}" . format(point))
+			print("Nearest: {0}" . format(barycentres[nearestBaryIndex]))
+
 			haveModification = 1
+			# supprimer le point de son ancien cluster
+			deletePointFromCluster(clusters, point)
 			clusters[nearestBaryIndex].append(point)
 			barycentres = getBarycentres(clusters)
 
