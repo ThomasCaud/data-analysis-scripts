@@ -17,13 +17,24 @@ def generatePoints(N):
 	Y = random.sample(range(1, 100), N)
 	return list(zip(X, Y))
 
-def getBarycentre(points, N):
-	sumX = 0
-	sumY = 0
-	for X, Y in points:
-		sumX += X
-		sumY += Y
-	return (sumX/N, sumY/N)
+def getBarycentre(points):
+	N = len(points)
+
+	if N > 0:
+		sumX = 0
+		sumY = 0
+		for X, Y in points:
+			sumX += X
+			sumY += Y
+		return (sumX/N, sumY/N)
+	return (0,0)
+
+def getBarycentres(clusters):
+	K = len(clusters)
+	barycentres = []
+	for i in range(K):
+		barycentres.append(getBarycentre(clusters[i]))
+	return barycentres
 
 def getInitBarycentres(points, N, K):
 	barycentres = []
@@ -51,8 +62,7 @@ def getIndexOfNearestBarycentre(barycentres, point):
 
 	return index
 
-def displayKMeans(clusters):
-	plt.figure()
+def displayKMeans(plt, clusters):
 	colors = ['blue', 'red', 'green', 'orange', 'black']
 	i = 0
 	while i < len(clusters):
@@ -61,9 +71,24 @@ def displayKMeans(clusters):
 		   x.append(point[0])
 		   y.append(point[1])
 
-		plt.plot(x, y, '+', color=colors[i % len(colors)])
+		plt.plot(x, y, color=colors[i % len(colors)])
 		i += 1
+	return
 
+def displayBarycentres(plt, barycentres):
+	x = []; y=[]
+	for point in barycentres:
+	   x.append(point[0])
+	   y.append(point[1])
+
+	plt.plot(x, y, '+', color='red', markersize=12)
+	return 
+
+
+def display(clusters, barycentres):
+	plt.figure()
+	displayKMeans(plt, clusters)
+	displayBarycentres(plt, barycentres)
 	plt.show()
 	return
 
@@ -71,7 +96,7 @@ def displayKMeans(clusters):
 N = 50
 
 # Number of clusters
-K = 5
+K = 3
 
 points = generatePoints(N)
 barycentres = getInitBarycentres(points, N, K)
@@ -83,11 +108,16 @@ nearestBary = getIndexOfNearestBarycentre(barycentres, points[0])
 
 clusters = np.empty((K, 0)).tolist()
 
-for point in points:
-	nearestBaryIndex = getIndexOfNearestBarycentre(barycentres, point)
-	clusters[nearestBaryIndex].append(point)
+haveModification = 1
+while haveModification:
+	print("Itération")
+	haveModification = 0
 
-displayKMeans(clusters)
+	for point in points:
+		nearestBaryIndex = getIndexOfNearestBarycentre(barycentres, point)
+		if point not in clusters[nearestBaryIndex]:
+			haveModification = 1
+			clusters[nearestBaryIndex].append(point)
+			barycentres = getBarycentres(clusters)
 
-# todo: recalculer les barycentres à chaque modification
-# tant que modification
+display(clusters, barycentres)
