@@ -1,0 +1,3 @@
+# Objectif
+Déterminer les coordonnées de départs et d'arrivées les plus fréquentes, afin d'adapter l'infrastructure cycliste de new york.
+Pour cela, stockage des données dans une base LMBD, puis appliquer un algo k-means pour déterminer k "trajets" moyens.
