@@ -99,3 +99,7 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+*.gz
+citibikenyc/mylmdb
+citibikenyc/201609-citibike-tripdata.csv
