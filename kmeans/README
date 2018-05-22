@@ -1,0 +1,5 @@
+- Le programme est fonctionnel, si vous rencontrez une erreur, contactez moi !
+- J'ai organisé mon code en plusieurs petites fonctions. Ainsi, il y a peu de commentaires. Si besoin, contactez moi également.
+- Le nombre de points et de clusters sont des constantes définies dans le code. Il est bien sûr possible de les modifier.
+- Les K grosses croix rouges représentent les coordonnées des barycentres
+- J'ai ajouté une image "linked.png" où les points des clusters sont reliés entre eux, afin de mieux visualiser le cluster

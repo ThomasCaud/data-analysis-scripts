@@ -71,7 +71,7 @@ def displayKMeans(plt, clusters):
 		   x.append(point[0])
 		   y.append(point[1])
 
-		plt.plot(x, y, color=colors[i % len(colors)])
+		plt.plot(x, y, '+', color=colors[i % len(colors)])
 		i += 1
 	return
 
@@ -81,7 +81,7 @@ def displayBarycentres(plt, barycentres):
 	   x.append(point[0])
 	   y.append(point[1])
 
-	plt.plot(x, y, '+', color='red', markersize=12)
+	plt.plot(x, y, '+', color='red', markersize=24)
 	return
 
 def display(clusters, barycentres):
@@ -111,12 +111,13 @@ clusters = np.empty((K, 0)).tolist()
 
 haveModification = 1
 while haveModification:
-	print("Itération")
+	print("New evaluation")
 	haveModification = 0
 
 	for point in points:
 		nearestBaryIndex = getIndexOfNearestBarycentre(barycentres, point)
 		if point not in clusters[nearestBaryIndex]:
+			print("Changing point to another cluster") 
 			print("barycentres: {0}" . format(barycentres))
 			print("Point : {0}" . format(point))
 			print("Nearest: {0}" . format(barycentres[nearestBaryIndex]))
